@@ -19,7 +19,7 @@ defmodule CoinCap.MixProject do
 
   defp deps do
     [
-      {:jason, "~> 1.0"},
+      {:poison, "~> 3.0"},
       {:tesla, "~> 0.10.0"}
     ]
   end

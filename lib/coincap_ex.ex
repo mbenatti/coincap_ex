@@ -26,7 +26,7 @@ defmodule CoinCap do
     request = get("/coins/")
 
     case request.status do
-      200 -> {:ok, request.body}
+      200 -> validate_body({:ok, request.body})
       _ -> {:error, "Error! Status: #{request.status}, Url: #{request.url}"}
     end
   end
@@ -41,7 +41,7 @@ defmodule CoinCap do
     request = get("/map/")
 
     case request.status do
-      200 -> {:ok, request.body}
+      200 -> validate_body({:ok, request.body})
       _ -> {:error, "Error! Status: #{request.status}, Url: #{request.url}"}
     end
   end
@@ -56,7 +56,7 @@ defmodule CoinCap do
     request = get("/front/")
 
     case request.status do
-      200 -> {:ok, request.body}
+      200 -> validate_body({:ok, request.body})
       _ -> {:error, "Error! Status: #{request.status}, Url: #{request.url}"}
     end
   end
@@ -91,7 +91,7 @@ defmodule CoinCap do
     request = get("/global/")
 
     case request.status do
-      200 -> {:ok, request.body}
+      200 -> validate_body({:ok, request.body})
       _ -> {:error, "Error! Status: #{request.status}, Url: #{request.url}"}
     end
   end
@@ -103,7 +103,7 @@ defmodule CoinCap do
   end
 
   @doc """
-  Get all information about an symbol
+  Get all information about a symbol
 
   ## Example
   iex(5)> CoinCap.page("BTC")
@@ -145,7 +145,7 @@ defmodule CoinCap do
     request = get("/page/" <> symbol)
 
     case request.status do
-      200 -> {:ok, request.body}
+      200 -> validate_body({:ok, request.body})
       _ -> {:error, "Error! Status: #{request.status}, Url: #{request.url}"}
     end
   end
@@ -160,7 +160,7 @@ defmodule CoinCap do
     request = get("/history/" <> symbol)
 
     case request.status do
-      200 -> {:ok, request.body}
+      200 -> validate_body({:ok, request.body})
       _ -> {:error, "Error! Status: #{request.status}, Url: #{request.url}"}
     end
   end
@@ -175,7 +175,7 @@ defmodule CoinCap do
     request = get("/history/1day/" <> symbol)
 
     case request.status do
-      200 -> {:ok, request.body}
+      200 -> validate_body({:ok, request.body})
       _ -> {:error, "Error! Status: #{request.status}, Url: #{request.url}"}
     end
   end
@@ -190,7 +190,7 @@ defmodule CoinCap do
     request = get("/history/7day/" <> symbol)
 
     case request.status do
-      200 -> {:ok, request.body}
+      200 -> validate_body({:ok, request.body})
       _ -> {:error, "Error! Status: #{request.status}, Url: #{request.url}"}
     end
   end
@@ -205,7 +205,7 @@ defmodule CoinCap do
     request = get("/history/30day/" <> symbol)
 
     case request.status do
-      200 -> {:ok, request.body}
+      200 -> validate_body({:ok, request.body})
       _ -> {:error, "Error! Status: #{request.status}, Url: #{request.url}"}
     end
   end
@@ -220,7 +220,7 @@ defmodule CoinCap do
     request = get("/history/90day/" <> symbol)
 
     case request.status do
-      200 -> {:ok, request.body}
+      200 -> validate_body({:ok, request.body})
       _ -> {:error, "Error! Status: #{request.status}, Url: #{request.url}"}
     end
   end
@@ -235,7 +235,7 @@ defmodule CoinCap do
     request = get("/history/180day/" <> symbol)
 
     case request.status do
-      200 -> {:ok, request.body}
+      200 -> validate_body({:ok, request.body})
       _ -> {:error, "Error! Status: #{request.status}, Url: #{request.url}"}
     end
   end
@@ -250,7 +250,7 @@ defmodule CoinCap do
     request = get("/history/365day/" <> symbol)
 
     case request.status do
-      200 -> {:ok, request.body}
+      200 -> validate_body({:ok, request.body})
       _ -> {:error, "Error! Status: #{request.status}, Url: #{request.url}"}
     end
   end
@@ -260,4 +260,9 @@ defmodule CoinCap do
     {_status, body} = history_365day(symbol)
     body
   end
+
+  defp validate_body({:ok, nil}) do
+    {:error, "The page or symbol not exist or the request is invalid"}
+  end
+  defp validate_body(tuple), do: tuple
 end

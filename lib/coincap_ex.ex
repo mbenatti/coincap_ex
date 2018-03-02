@@ -1,5 +1,5 @@
 defmodule CoinCap do
-  use Tesla
+  use Tesla, docs: false
 
   @moduledoc """
   CoinCap Client Module for Elixir (see https://github.com/CoinCapDev/CoinCap.io)
